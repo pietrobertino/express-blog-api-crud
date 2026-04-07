@@ -6,10 +6,20 @@ const index = (req, res) => {
 }
 
 const show = (req, res) => {
-    const post = posts.find(post => post.id == req.params.id)
-    if (post) {
-        res.json(post)
-    } else { res.send("Non esiste nessun post con id = " + req.params.id) }
+    const id = Number(req.params.id);
+    const post = posts.find(post => post.id === id);
+    if (!post) {
+
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "Post not found"
+        })
+    }
+
+    res.json(post);
 }
 
 const store = (req, res) => {
@@ -28,15 +38,22 @@ const modify = (req, res) => {
 
 
 const destroy = (req, res) => {
-    const post = posts.find(post => post.id == req.params.id)
-    if (post) {
-        const index = posts.indexOf(post);
-        posts.splice(index, 1);
-        res.json(posts);
-    } else {
-        res.send("Non esiste nessun post con id = " + req.params.id)
+    const id = Number(req.params.id);
+    const post = posts.find(post => post.id === id);
+    if (!post) {
+
+        res.status(404);
+
+        return res.json({
+            status: 404,
+            error: "Not Found",
+            message: "Post not found"
+        })
     }
 
+    posts.splice(posts.indexOf(post), 1);
+    console.log(posts);
+    res.sendStatus(204);
 }
 
 module.exports = {
