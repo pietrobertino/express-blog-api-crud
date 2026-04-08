@@ -27,8 +27,24 @@ const show = (req, res) => {
 }
 
 const store = (req, res) => {
-    res.send('Aggiungi un post');
-    console.log(req.body);
+
+    const newId = posts[posts.length - 1].id + 1;
+
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        body: req.body.body,
+        img: req.body.img,
+        tags: req.body.tags
+    }
+
+    posts.push(newPost);
+
+    console.log(posts);
+
+    res.status(201);
+
+    res.json(newPost);
 }
 
 
