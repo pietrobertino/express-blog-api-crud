@@ -49,7 +49,30 @@ const store = (req, res) => {
 
 
 const update = (req, res) => {
-    res.send('Aggiorna interamente il post con id = ' + req.params.id);
+
+    const id = parseInt(req.params.id);
+
+    const post = posts.find(post => post.id === id);
+
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: "Not Found",
+            message: "Post not found"
+        })
+    }
+
+    post.title = req.body.title;
+    post.body = req.body.body;
+    post.img = req.body.img;
+    post.tags = req.body.tags;
+
+    console.log(posts);
+
+    res.json(post);
+
+    //status 200 è già quello giusto
+
 }
 
 
