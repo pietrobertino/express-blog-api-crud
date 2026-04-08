@@ -28,6 +28,7 @@ const show = (req, res) => {
 
 const store = (req, res) => {
     res.send('Aggiungi un post');
+    console.log(req.body);
 }
 
 
